@@ -37,5 +37,16 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasRole('admin');
         });
 
+        Gate::define('manage-blogs', function($user){
+            return $user->hasRole('author');
+        });
+
+        Gate::define('edit-blogs', function($user){
+            return $user->hasRole('author');
+        });
+        Gate::define('delete-blogs', function($user){
+            return $user->hasRole('author');
+        });
+
     }
 }

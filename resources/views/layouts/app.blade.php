@@ -7,10 +7,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Blogger Ka Gurl?') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <script src="https://cdn.tiny.cloud/1/a83lnt1g8roukkm2kb9pe6jx8exujdaz57544u6xvzmbtsuu/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>tinymce.init({selector:'textarea'});</script> --}}
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -58,6 +60,11 @@
                                     @can('edit-users')
                                         <a class="dropdown-item" href="{{route('admin.users.index')}}">
                                             User Management
+                                        </a>
+                                    @endcan
+                                    @can('edit-blogs')
+                                        <a class="dropdown-item" href="{{route('author.blogs.index')}}">
+                                            Manage blogs
                                         </a>
                                     @endcan
                                     <a class="dropdown-item" href="{{ route('logout') }}"
