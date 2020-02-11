@@ -1,0 +1,10 @@
+Roles
+Admin - RUD Users
+Author - CRUD Blog Posts, R Comments
+User - CRUD Comments, R Blog Posts
+
+Login 
+admin@admin.com - secret123
+author@author.com - password
+user@user.com - password
+
