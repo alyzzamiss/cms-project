@@ -10,4 +10,9 @@ class Blog extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function comment()
+    {
+        return $this->hasMany('App\Comment');
+    }    
 }

@@ -28,3 +28,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 Route::namespace('Author')->prefix('author')->name('author.')->middleware('can:manage-blogs')->group(function(){
     Route::resource('/blogs', 'BlogsController');
 });
+
+Route::namespace('User')->prefix('user')->name('user.')->middleware('can:manage-comments')->group(function(){
+    Route::resource('/comments', 'CommentsController');
+});

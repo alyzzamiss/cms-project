@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('manage-users', function($user){
-            return $user->hasAnyRoles(['admin', 'author']);
+            return $user->hasRole('admin');
         });
 
         Gate::define('edit-users', function($user){
@@ -41,11 +41,33 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasRole('author');
         });
 
+        Gate::define('read-blogs', function($user){
+            return $user->hasAnyRoles(['author', 'user']);
+        });
+
         Gate::define('edit-blogs', function($user){
             return $user->hasRole('author');
         });
+
         Gate::define('delete-blogs', function($user){
             return $user->hasRole('author');
+        });
+
+        Gate::define('manage-comments', function($user){
+            return $user->hasRole('user');
+        });
+
+        
+        Gate::define('read-comments', function($user){
+            return $user->hasAnyRoles(['author', 'user']);
+        });
+
+        Gate::define('edit-comments', function($user){
+            return $user->hasRole('user');
+        });
+
+        Gate::define('delete-comments', function($user){
+            return $user->hasRole('user');
         });
 
     }

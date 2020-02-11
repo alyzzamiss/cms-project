@@ -7,6 +7,7 @@ use App\User;
 use App\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class BlogsController extends Controller
 {
@@ -67,7 +68,10 @@ class BlogsController extends Controller
      */
     public function show(Blog $blog)
     {
-        //
+        if (Gate::denies('read-blogs')) {
+            return redirect(route('admin.users.index'));
+        }
+        return view('author.show')->with('blog', $blog);
     }
 
     /**
@@ -78,7 +82,11 @@ class BlogsController extends Controller
      */
     public function edit(Blog $blog)
     {
-        //
+       if (Gate::denies('edit-blogs')) {
+           return redirect(route('home'));
+       }
+
+       return view('author.edit')->with('blog', $blog);
     }
 
     /**
@@ -90,7 +98,15 @@ class BlogsController extends Controller
      */
     public function update(Request $request, Blog $blog)
     {
-        //
+        $blog ->title = $request->title;
+        $blog ->body = $request->body;
+        if ($blog->save()) {
+            $request->session()->flash('success', $blog->title . ' has been updated!');
+        }else {
+            $request->session()->flash('error', 'There was an error updating', $blog->title . '!');
+        }
+
+        return redirect()->route('author.blogs.index');
     }
 
     /**
@@ -101,6 +117,11 @@ class BlogsController extends Controller
      */
     public function destroy(Blog $blog)
     {
-        //
+        if (Gate::denies('delete-blogs')) {
+            return redirect(route('home'));
+        }
+
+        $blog->delete();
+        return redirect()->route('author.blogs.index');
     }
 }

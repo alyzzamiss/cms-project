@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Blog;
 use App\User;
 use App\Role;
+use App\Comment;
 
 class HomeController extends Controller
 {
@@ -27,6 +28,8 @@ class HomeController extends Controller
     public function index()
     {
         $blogs = Blog::all();
-        return view('home')->with('blogs', $blogs);
+        $comments = Comment::all();
+        $users = User::all();
+        return view('home')->with('blogs', $blogs)->with('comments', $comments);
     }
 }

@@ -12,7 +12,7 @@
                 <a href="{{route('author.blogs.create')}}"><button class="btn btn-primary float-right btn-sm">Create New Blog</button></a>
             </div>                
         </div>        
-        @foreach ($blogs as $blog)
+        @foreach ($blogs-> sortByDesc('created_at') as $blog)
             <div class="card mb-4">
                 <div class="card-header"><a href="">{{$blog->title}}</a></div>
                 <div class="card-body">{{$blog->body}}<br>
@@ -28,7 +28,7 @@
                     @endcan
                 </div>
                 <div class="card-footer">
-                    <small>{{$blog->created_at}}</small>
+                    <small>{{$blog->created_at->format('m/d/Y')}}</small>
                 </div>                        
             </div>
         @endforeach
